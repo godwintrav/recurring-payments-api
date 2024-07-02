@@ -10,7 +10,9 @@
     "test": "jest",
     "cdk": "cdk",
     "localstack:bootstrap": "cdklocal bootstrap aws://000000000000/eu-west-2",
-    "localstack:deploy": "cdklocal deploy BitsAwsTaskLocalStackStack --profile localstack"
+    "localstack:deploy": "cdklocal deploy BitsAwsTaskLocalStackStack --profile localstack",
+    "aws:bootstrap": "cdk bootstrap",
+    "aws:deploy": "cdk deploy BitsAwsTaskStack"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.140",

@@ -1,6 +1,6 @@
-# Welcome to your CDK TypeScript project
+# Bits AWS Software Engineer Task
 
-This is a blank project for CDK development with TypeScript.
+This is the solution for Godwin Odenigbo
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 

@@ -39,6 +39,8 @@ export async function createPayment(body: string | null): Promise<IApiResponse> 
   
   
   try{
+
+    //no need to sanitize input as SQL injection not possible in NO-SQL database like dynamoDB
     await dynamodb.send(
       new PutCommand({
         TableName: process.env.TABLE_NAME,
