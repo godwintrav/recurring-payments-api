@@ -39,7 +39,7 @@ export class BitsAwsTaskStack extends cdk.Stack {
     usagePlan.addApiKey(apiKey);
 
     const recurringPaymentsLambda = new NodejsFunction(this, 'RecurringPaymentsLambda', {
-      entry: 'src/endpoints/payments.ts',
+      entry: 'src/handlers/payments.ts',
       handler: 'handler',
       environment: {
         TABLE_NAME: dbTable.tableName

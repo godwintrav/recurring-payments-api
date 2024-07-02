@@ -19,3 +19,7 @@ new BitsAwsTaskStack(app, 'BitsAwsTaskStack', {
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
+
+new BitsAwsTaskStack(app, 'BitsAwsTaskLocalStackStack', {
+  env: { account: '000000000000', region: 'eu-west-2' },
+});
