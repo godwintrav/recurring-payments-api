@@ -4,7 +4,7 @@ import * as cdk from 'aws-cdk-lib';
 import { BitsAwsTaskStack } from '../lib/bits-aws-task-stack';
 
 const app = new cdk.App();
-new BitsAwsTaskStack(app, 'BitsAwsTaskStack', {
+new BitsAwsTaskStack(app, 'BitsAwsTaskStack', false, {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
@@ -20,6 +20,6 @@ new BitsAwsTaskStack(app, 'BitsAwsTaskStack', {
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
 
-new BitsAwsTaskStack(app, 'BitsAwsTaskLocalStackStack', {
+new BitsAwsTaskStack(app, 'BitsAwsTaskLocalStackStack', true ,{
   env: { account: '000000000000', region: 'eu-west-2' },
 });

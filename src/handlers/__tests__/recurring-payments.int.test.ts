@@ -6,9 +6,10 @@ describe('Lambda Handler integration test', () => {
     let API_URL: string;
     let apiKey: string;
     let mockBody: any;
+    let client: APIGatewayClient;
     beforeAll(async () => {
         //GET API URL
-        const client = new APIGatewayClient(LOCALSTACK_CLIENT_CONFIG);
+        client = new APIGatewayClient(LOCALSTACK_CLIENT_CONFIG);
         const response = await client.send(new GetRestApisCommand({}));
         const API_ID = response.items![0].id;
 
@@ -18,10 +19,15 @@ describe('Lambda Handler integration test', () => {
         const getApiKeyResponse = await client.send(new GetApiKeyCommand({apiKey: api_id, includeValue: true}));
         apiKey = getApiKeyResponse.value!;
         API_URL = `https://${API_ID}.execute-api.localhost.localstack.cloud:4566/prod/payments`;
+        client.destroy()
     });
 
     beforeEach(() => {
         mockBody = {"paymentTimestamp": "2024-08-01T12:34:56Z","paymentDescription": "Gym","currency": "test-currency","amount": 100};
+    });
+
+    afterAll(() => {
+        client.destroy();
     })
 
     it('API should fail with status code 400 when api called with empty body', async () => {
