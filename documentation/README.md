@@ -64,5 +64,30 @@ There are various things we can do to ensure scalability and high availability o
 5. Monitoring and Logging: We can set up CloudWatch Alarms for monitoring Lambda function errors, duration and concurrency limits to know when things go wrong. We can also use it to monitor DynamoDB throttling. Also we can use AWS XRAY for end-to-end tracing of requests as they move through the API Gateway, Lambda and DynamoDB to help identify any bottlenecks.
 
 ## API CONTRACT
-The API Contract of this application can be found [here](documentation/api-contract/openapi.yaml)
+The API Contract of this application can be found [here](documentation/api-contract/openapi.yaml).
+
+
 You can copy and past the yaml file in the [swagger.io editor](https://editor.swagger.io/) to see a nice representation of the API Documentation.
+
+URL: `https://a13bvy562h.execute-api.eu-west-2.amazonaws.com/prod`
+
+Method: `POST`
+
+PATH: `/payments`
+
+JSON Body Example:
+```
+{
+    "paymentTimestamp": "2024-08-01T12:34:56Z",
+    "paymentDescription": "Gym",
+    "currency": "Dollars",
+    "amount": 500
+}
+```
+
+Success Response: [ApiResponse](types.ts) Object and a status code `201`
+
+Error Response: 
+- Returns status `500` if there is an internal server error.
+- Returns status `400` if body is not sent.
+- Returns status `422` if body parameter is invalid.
