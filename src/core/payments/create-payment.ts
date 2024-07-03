@@ -59,7 +59,7 @@ export async function createPayment(body: string | null): Promise<IApiResponse> 
     const err = error as Error;
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: err.message }),
+      body: JSON.stringify({ message: "Internal Server Error" }),
     };
   }
   

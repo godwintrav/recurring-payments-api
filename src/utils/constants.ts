@@ -4,6 +4,7 @@ export const INVALID_CURRENCY_MSG = "Invalid Currency";
 export const INVALID_AMOUNT_MSG = "Invalid Amount";
 export const MISSING_BODY_MSG = "Missing body";
 export const PAYMENT_RECORDED_MSG = "Payment Recorded";
+export const INTERNAL_SERVER_ERROR = "Internal Server Error";
 
 export const LOCALSTACK_CLIENT_CONFIG = {
     region: 'eu-west-2',

@@ -2,6 +2,10 @@
 
 This is the solution for Godwin Odenigbo Bits Software Engineer Task.
 
+## Documentation
+Full Required Documentation can be found [here](documentation/README.md)
+
+
 ## Setup
 
 Run `npm i` to install all required packages

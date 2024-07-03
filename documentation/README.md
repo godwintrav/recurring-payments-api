@@ -9,6 +9,8 @@ Below is the system architecture using various aws services like: AWS API Gatewa
 
 The above Diagram uses the API Gateway to get request from the client and then sends the event to the Lambda which is in a private subnet in our vpc for security reasons that will be explained better below. Then the Lambda sends the data to be stored to DynamoDB through the VPC DynamoDB gateway endpoint.
 
+High Level: Our client makes a request to our API Gateway with the required header and body parameters then our API Gateway sends the event to our Lambda in a private subnet in a VPC through private AWS network with the help of the VPC endpoint and then our lambda does the compute and then stores the data sent in the DynamoDB table through AWS private network with the help of VPC endpoint again. My reason for going with this architecture is to ensure maximum security through the use of VPC and VPC endpoints for private network communication without having to go through the public internet as that causes more security concern. Also High Availability and scalability is essential with the communication of AWS services within the private network as that reduces Latency.
+
 API Design:
 The API was designed in a way the business logic or core functions is separated from the handler function. A design pattern known as Service Layer Design Pattern is what I used. This involves creating a different layer/folder that stores the business logic which is our `core` folder and is completely separate from the application's entry point which is our `handler`. This ensures separation of concern for all the components involved and helps with better code organization, testing and maintainability.
 
@@ -40,7 +42,7 @@ IAM Permissions: The Lambda function has been granted only the specific permissi
 
 API Key: The API Gateway requires an API key to access the POST method on the `/payments` resource. This restricts access to authorized clients only.
 
-Usage Plan: Associates the API key with a usage plan to control and monitor API usage, preventing abuse and managing access rates.
+Usage Plan: Associates the API key with a usage plan to control and monitor API usage, preventing misuse and managing access rates.
 
 6. Lambda Function Configuration:
 
@@ -61,3 +63,5 @@ There are various things we can do to ensure scalability and high availability o
 
 5. Monitoring and Logging: We can set up CloudWatch Alarms for monitoring Lambda function errors, duration and concurrency limits to know when things go wrong. We can also use it to monitor DynamoDB throttling. Also we can use AWS XRAY for end-to-end tracing of requests as they move through the API Gateway, Lambda and DynamoDB to help identify any bottlenecks.
 
+## API CONTRACT
+The API Contract of this application can be found [here](documentation/api-contract/openapi.yaml)

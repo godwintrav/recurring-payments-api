@@ -2,7 +2,7 @@ import 'aws-sdk-client-mock-jest';
 import { mockClient } from 'aws-sdk-client-mock';
 import { createPayment, dynamodb } from "../create-payment";
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
-import { INVALID_AMOUNT_MSG, INVALID_CURRENCY_MSG, INVALID_PAYMENT_DESCRIPTION_MSG, INVALID_PAYMENT_TIMESTAMP_MSG, MISSING_BODY_MSG, PAYMENT_RECORDED_MSG } from '../../../utils/constants';
+import { INTERNAL_SERVER_ERROR, INVALID_AMOUNT_MSG, INVALID_CURRENCY_MSG, INVALID_PAYMENT_DESCRIPTION_MSG, INVALID_PAYMENT_TIMESTAMP_MSG, MISSING_BODY_MSG, PAYMENT_RECORDED_MSG } from '../../../utils/constants';
 
 
 
@@ -77,7 +77,7 @@ describe('createPayment', () => {
         const response = await createPayment(JSON.stringify(mockBody));
         expect(response).toEqual(expect.objectContaining({
             statusCode: 500,
-            body: JSON.stringify({ message: error.message }),
+            body: JSON.stringify({ message: INTERNAL_SERVER_ERROR }),
         }));
     });
 })

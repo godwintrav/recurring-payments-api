@@ -1,0 +1,154 @@
+openapi: 3.0.3
+info:
+  title: Bits Recurring Payments API - OpenAPI 3.0
+  description: |-
+    This is an API used by Bits for storing Recurring Payments of Authorized Users that will be used by Bits to create a report on a monthly basis and add these successful commitments to their customer’s credit file.
+  contact:
+    email: godwintrav@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: https://a13bvy562h.execute-api.eu-west-2.amazonaws.com/prod/
+tags:
+  - name: payments
+    description: Everything about recurring payments
+paths:
+  /payments:
+    post:
+      tags:
+        - payments
+      summary: Store new recurring payment information
+      security:
+      - api_key: []
+      description: Create a new payment record
+      operationId: createPayment
+      requestBody:
+        description: Create a new payment record in our database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Payment'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessApiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestApiResponse'
+        '403':
+          description: Unauthorized request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenApiResponse'        
+        '422':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidBodyApiResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorApiResponse'
+components:
+  schemas:
+    Payment:
+      required:
+        - paymentTimestamp
+        - paymentDescription
+        - currency
+        - amount
+      type: object
+      properties:
+        paymentTimestamp:
+          type: string
+          example: 2024-08-01T12:34:56Z
+        paymentDescription:
+          type: string
+          example: Gym
+        currency:
+          type: string
+          example: Dollars
+        amount:
+          type: integer
+          format: int64
+          example: 10  
+      xml:
+        name: payment
+    SuccessApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 201
+        message:
+          type: string
+          example: Payment Recorded
+    BadRequestApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 400
+        message:
+          type: string
+          example: Missing body     
+    InvalidBodyApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 422
+        message:
+          type: string
+          example: Invalid paymentTimestamp      
+    ServerErrorApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 500
+        message:
+          type: string
+          example: Internal Server Error            
+    ForbiddenApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 403
+        message:
+          type: string
+          example: Forbidden                  
+  requestBodies:
+    Payment:
+      description: Payment object that needs to be stored
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Payment'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-API-Key
+      in: header
