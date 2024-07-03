@@ -4,6 +4,7 @@ import { DynamoDB } from '@aws-sdk/client-dynamodb';
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
 import { validateBody } from '../../utils/validate-body';
 import { MISSING_BODY_MSG, PAYMENT_RECORDED_MSG } from '../../utils/constants';
+import { sanitize } from '../../utils/sanitize';
 
 export const dynamodb = new DynamoDB({});
 
@@ -33,14 +34,19 @@ export async function createPayment(body: string | null): Promise<IApiResponse> 
       
     };
   }
-  
+
+  //sanitize strings to prevent XSS Attacks
+  parsedBody.currency = sanitize(parsedBody.currency.trim());
+  parsedBody.paymentDescription = sanitize(parsedBody.paymentDescription.trim());;
+  parsedBody.paymentTimestamp = sanitize(parsedBody.paymentTimestamp.trim());
+
+  //set random uuid values
   parsedBody.paymentIdentifier = paymentIdentifier
   parsedBody.userId = userId;
   
   
   try{
 
-    //no need to sanitize input as SQL injection not possible in NO-SQL database like dynamoDB
     await dynamodb.send(
       new PutCommand({
         TableName: process.env.TABLE_NAME,

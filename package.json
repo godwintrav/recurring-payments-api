@@ -8,6 +8,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
+    "test:unit": "jest src/core utils",
+    "test:integration": "jest src/handlers",
     "cdk": "cdk",
     "localstack:bootstrap": "cdklocal bootstrap aws://000000000000/eu-west-2",
     "localstack:deploy": "cdklocal deploy BitsAwsTaskLocalStackStack --profile localstack",

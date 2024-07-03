@@ -11,7 +11,7 @@ Make sure you have `awscli` installed on your device and configured to your aws 
 
 ## Local
 
-To run the app locally I used [Localstack](https://www.localstack.cloud/). You can read on how to install it here: https://docs.localstack.cloud/getting-started/installation/
+To run the app locally I used [Localstack](https://www.localstack.cloud/). You can read on how to install and configure it here: https://docs.localstack.cloud/getting-started/installation/
 
 Go to your `~/.aws/credentials` and create a profile for localstack for example:
 ```text
@@ -28,7 +28,7 @@ output=json
 endpoint_url=http://localhost:4566
 ```
 
-Now start up docker and in the root directory run `docker-compose up`. This starts localstack with docker.
+Now start up docker and in the root directory run `docker-compose up` in a separate terminal. This starts localstack with docker.
 
 Run `npm run localstack:bootstrap` to run the bootstrap command in localstack.
 
@@ -86,8 +86,12 @@ You will get a response in the following format like the example below:
 
 Copy the value from the response and store it somewhere safe. That value is the `X-API-KEY` required in your request header.
 
-## Unit and Integration Test
+## Integration Tests
 
-To run the tests you need to ensure localstack is running as the integration test uses localstack. You can see how to start up localstack from the section above.
+To run the integration tests you need to ensure localstack is running as the integration test uses localstack and you have run both the bootstrap and deploy command for localstack. You can see how to start up localstack and deploy from the `Local` section above.
 
-Now run `npm run test` in your root directory.
+Now run `npm run test:integration` in your root directory.
+
+## Unit Tests
+
+Run `npm run test:unit` for running unit tests
