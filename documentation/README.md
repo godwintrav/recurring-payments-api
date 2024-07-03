@@ -65,3 +65,4 @@ There are various things we can do to ensure scalability and high availability o
 
 ## API CONTRACT
 The API Contract of this application can be found [here](documentation/api-contract/openapi.yaml)
+You can copy and past the yaml file in the [swagger.io editor](https://editor.swagger.io/) to see a nice representation of the API Documentation.
