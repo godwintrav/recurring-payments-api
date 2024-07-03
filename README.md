@@ -99,3 +99,28 @@ Now run `npm run test:integration` in your root directory.
 ## Unit Tests
 
 Run `npm run test:unit` for running unit tests
+
+## Server Endpoints
+
+URL: `https://a13bvy562h.execute-api.eu-west-2.amazonaws.com/prod`
+
+Method: `POST`
+
+PATH: `/payments`
+
+JSON Body Example:
+```
+{
+    "paymentTimestamp": "2024-08-01T12:34:56Z",
+    "paymentDescription": "Gym",
+    "currency": "Dollars",
+    "amount": 500
+}
+```
+
+Success Response: [ApiResponse](types.ts) Object and a status code `201`
+
+Error Response: 
+- Returns status `500` if there is an internal server error.
+- Returns status `400` if body is not sent.
+- Returns status `422` if body parameter is invalid.
