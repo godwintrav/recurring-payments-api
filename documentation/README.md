@@ -53,7 +53,7 @@ Security Group: The Lambda function uses a security group that restricts outboun
 ## High Level Plan for Scalability and Availability
 There are various things we can do to ensure scalability and high availability of our system.
 
-1. API Gateway: To ensure High Availability we could deploy our API Gateway to multiple regions for better performance and availability. We can also use Load balancers and Auto Scaling groups for very high traffic to ensure high availability and match an increased load.
+1. API Gateway: To ensure High Availability we could deploy our API Gateway to multiple regions for better performance and availability. We can also use Load balancers and Auto Scaling groups for very high traffic to ensure high availability and match increased load. Auto Scaling groups can also help launch a new replacement if any instance fails which is good for high availability.
 
 2. AWS Lambda Function Scaling: By Default AWS Lambda automatically scales horizontally with the number of incoming requests so this already helps with scalability. We can also increase the reserved concurrency limit of our lambda to handle unexpected spikes in traffic. Also we can consider enabling provisioned concurrency for our Lambda function if we know the expected consistent Load we expect, so we can reduce cold start times and ensure high availability.
 
