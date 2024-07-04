@@ -53,15 +53,15 @@ Security Group: The Lambda function uses a security group that restricts outboun
 ## High Level Plan for Scalability and Availability
 There are various things we can do to ensure scalability and high availability of our system.
 
-1. API Gateway: To ensure High Availability we could deploy our API Gateway to multiple regions for better performance and availability. We can also use Load balancers and Auto Scaling groups for very high traffic.
+1. API Gateway: To ensure High Availability we could deploy our API Gateway to multiple regions for better performance and availability. We can also use Load balancers and Auto Scaling groups for very high traffic to ensure high availability and match an increased load.
 
-2. AWS Lambda Function Scaling: By Default AWS Lambda automatically scales horizontally with the number of incoming requests so this already helps with scalability. We can also increase the reserved concurrency limit of our lambda to handle unexpected spikes in traffic. Also we can consider enabling provisioned concurrency for our Lambda function if we know the expected consistent Load we expect.  so we can reduce cold start times and ensure high availability.
+2. AWS Lambda Function Scaling: By Default AWS Lambda automatically scales horizontally with the number of incoming requests so this already helps with scalability. We can also increase the reserved concurrency limit of our lambda to handle unexpected spikes in traffic. Also we can consider enabling provisioned concurrency for our Lambda function if we know the expected consistent Load we expect, so we can reduce cold start times and ensure high availability.
 
-3. VPC and Networking: We can ensure to have multiple Availability Zones for High Availability in case there is an issue in one of the Availability Zones. Also using VPC endpoints for our DynamoDB and API Gateway reduces latency by ensuring traffic and communication is within the AWS network and not the public internet.
+3. VPC and Networking: We can ensure to have multiple Availability Zones for High Availability in case there is an issue in one of the Availability Zones. Also using VPC endpoints for our DynamoDB and API Gateway reduces latency by ensuring traffic and communication is within the AWS private network and not the public internet. This ensures no slow traffic.
 
 4. DynamoDB: DynamoDB has on-demand capacity mode that automatically adjusts to accommodate traffic without manual intervention. This is really helpful for scaling during unexpected traffic spikes. 
 
-5. Monitoring and Logging: We can set up CloudWatch Alarms for monitoring Lambda function errors, duration and concurrency limits to know when things go wrong. We can also use it to monitor DynamoDB throttling. Also we can use AWS XRAY for end-to-end tracing of requests as they move through the API Gateway, Lambda and DynamoDB to help identify any bottlenecks.
+5. Monitoring and Logging: We can set up CloudWatch Alarms for monitoring Lambda function errors, duration and concurrency limits to know when things go wrong. We can also use it to monitor DynamoDB throttling. Also we can use AWS XRAY for end-to-end tracing of requests as they move through the API Gateway, Lambda and DynamoDB to help identify any bottlenecks that may cause slow traffic.
 
 ## API CONTRACT
 The API Contract of this application can be found [here](documentation/api-contract/openapi.yaml).
