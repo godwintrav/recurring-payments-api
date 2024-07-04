@@ -58,7 +58,7 @@ You will get a response in the following format like the example below:
 }
 ```
 
-Copy the value from the response and store it somewhere safe. That value is the `X-API-KEY` required in your request header.
+Copy the value from the response and store it somewhere safe. That value is the `X-API-KEY` required in your request header for authorization.
 
 ## Production
 
