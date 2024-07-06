@@ -19,7 +19,6 @@ describe('Lambda Handler integration test', () => {
         const getApiKeyResponse = await client.send(new GetApiKeyCommand({apiKey: api_id, includeValue: true}));
         apiKey = getApiKeyResponse.value!;
         API_URL = `https://${API_ID}.execute-api.localhost.localstack.cloud:4566/prod/payments`;
-        client.destroy()
     });
 
     beforeEach(() => {
