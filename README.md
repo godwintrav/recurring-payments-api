@@ -1,6 +1,6 @@
-# Bits AWS Software Engineer Task
+# Recurring Payments API
 
-This is the solution for Godwin Odenigbo Bits Software Engineer Task.
+This is an API that accepts recurring payments from a client for checking regular payements(can be used in a credit check)
 
 ## Documentation
 Full Required Documentation can be found [here](documentation/README.md)
